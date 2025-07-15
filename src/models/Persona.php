@@ -12,6 +12,17 @@ abstract class Persona {
         $this->documento =$documento;
         $this->tipoDocumento =$tipo;
     }
+    public abstract function esMayor(): bool;
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     public function setNombre(string $nombre): void
     {

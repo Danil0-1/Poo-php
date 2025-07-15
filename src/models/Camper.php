@@ -1,8 +1,9 @@
 <?php
 
-include_once"Person.php";
+include_once("Persona.php");
+include_once("Asistencia.php");
 
-class Camper extends Person {
+class Camper extends Persona implements Asistencia {
     private  string $nombre;
     protected string $documento;
 
@@ -26,6 +27,13 @@ class Camper extends Person {
     $this->nivelIngles = $nivel;
     echo "Hola desde el constructor <br>";
 }
+    public function MarcarIngreso(string $metodo): string{
+        return "{$this->nombre} marco el ingreso con {$metodo} ";
+    }
+
+    public function MarcarSalida(string $metodo): string{
+            return "{$this->nombre} marco Salida con {$metodo} ";
+    }
 
     public function marcarAsistencia() {}
 
@@ -36,24 +44,23 @@ class Camper extends Person {
 
     public function setNombre(string $nombre): void
     {
-        if (strlen($nombre) <= 20) {
-            $this->nombre = $nombre;    
+        if (strlen($nombre) >= 5) {
+            $this->nombre = $nombre;
         } else {
-            echo 'Error al asignar el nombre al Camper<br>';
-            $this->nombre = 'NN';
+            echo 'Error al asignar el nombre al Camper';
         }
     }
 
     public function getNombre(): string
     {
-        return $this->nombre;
+        return "__" . strtoupper(parent::getNombre()) . "__";
     }
 
-
-    public function getDocumento(): string
+    public function getInfoDocumento(): string
     {
-        return "{$this->tipoDocumento} | {$this->documento}";
+        return "{$this->getTipoDocumento()}: {$this->getDocumento()}";
     }
+
 
     public function informacion(): array
     {
