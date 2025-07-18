@@ -1,9 +1,10 @@
 <?php
 
-include_once'src/http/controllers/CrudController.php';
-include_once'src/http/controllers/ProductoController.php';
-include_once'src/http/controllers/CamperController.php';
-
+include_once 'src/http/controllers/CrudController.php';
+include_once 'src/http/controllers/ProductoController.php';
+include_once 'src/http/controllers/CamperController.php';
+include_once "src/repositories/CamperRepositoryImpl.php";
+include_once "src/core/DatabasePDO.php";
 class ControllerFactory
 {
 
@@ -13,7 +14,8 @@ class ControllerFactory
             case 'products':
                 return new ProductoController();
             case 'camper':
-                return new CamperController();
+                $repository = new CamperRepositoryImpl(DatabasePDO::getConnection());
+                return new CamperController($repository);
             default:
                 http_response_code(404);
                 echo json_encode([

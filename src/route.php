@@ -55,7 +55,10 @@ class Route
         ]);
         exit;
     }
-    $controller->$function();
+
+    $data = file_get_contents('php://input', true) ? json_encode(file_get_contents('php://input', true), true): [];
+
+    $controller->$function(["params" =>$this->parametros, "data" => $data]);
 
     }
 }
